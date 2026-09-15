@@ -9,7 +9,8 @@ class FiestraPrincipal(QMainWindow):
         self.setWindowTitle("A miña primeira aplicacion Qt")
         self.setMinimumSize(800, 600)
         self.setMaximumSize(1800, 1600)
-
+        paleta = self.palette()
+        paleta.setColor(QPalette.ColorRole.Window)
 
         self.show()
 
