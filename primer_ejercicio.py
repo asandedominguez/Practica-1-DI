@@ -11,35 +11,28 @@ class FiestaPrincipal(QMainWindow):  # Define la clase de la ventana principal h
         super().__init__()  # Llama al constructor de la clase padre (QMainWindow) para configurar correctamente el objeto.
 
         self.setWindowTitle('Prueba')  # Establece el título de la ventana como 'Prueba'.
-        self.setMinimumSize(300,
-                            200)  # Fija el tamaño mínimo que puede tener la ventana (300px de ancho por 200px de alto).
-        self.setMaximumSize(500,
-                            400)  # Fija el tamaño máximo que puede alcanzar la ventana (500px de ancho por 400px de alto).
+        self.setMinimumSize(300, 200)  # Fija el tamaño mínimo que puede tener la ventana (300px de ancho por 200px de alto).
+        self.setMaximumSize(500, 400)  # Fija el tamaño máximo que puede alcanzar la ventana (500px de ancho por 400px de alto).
 
         palette = self.palette()  # Obtiene la paleta de colores actual de la ventana.
         palette.setColor(QPalette.ColorRole.Window,
-                         QColor("blue"))  # Modifica el color de fondo (Window) de la paleta y lo pone azul.
+        QColor("blue"))  # Modifica el color de fondo (Window) de la paleta y lo pone azul.
         self.setPalette(palette)  # Aplica la paleta de colores modificada a la ventana.
 
         caixaV = QVBoxLayout()  # Crea un gestor de diseño (layout) vertical. Los elementos se colocarán uno debajo de otro.
 
         boton = QPushButton('botón')  # Crea un botón con el texto 'botón'.
-        boton.clicked.connect(
-            self.on_boton_clicked)  # Conecta el evento de hacer clic en el botón con la función 'on_boton_clicked'.
+        boton.clicked.connect(self.on_boton_clicked)  # Conecta el evento de hacer clic en el botón con la función 'on_boton_clicked'.
 
-        self.etiqueta = QLabel(
-            "Hola a todas")  # Crea una etiqueta de texto que inicialmente dice "Hola a todas". Se usa 'self' para guardarla como atributo.
+        self.etiqueta = QLabel("Hola a todas")  # Crea una etiqueta de texto que inicialmente dice "Hola a todas". Se usa 'self' para guardarla como atributo.
         self.cadroTexto = QLineEdit()  # Crea un cuadro de entrada de texto de una sola línea. Se usa 'self' para guardarlo como atributo.
-        self.cadroTexto.setPlaceholderText(
-            "Introduce tu nombre")  # Añade un texto de sugerencia gris de fondo al cuadro de texto.
+        self.cadroTexto.setPlaceholderText("Introduce tu nombre")  # Añade un texto de sugerencia gris de fondo al cuadro de texto.
 
         self.etiqueta.setText("Otro texto")  # Cambia inmediatamente el texto de la etiqueta a "Otro texto".
-        self.cadroTexto.setText(
-            "Tamén o podo modificar con outro texto")  # Escribe por defecto el texto gallego en el cuadro de entrada.
+        self.cadroTexto.setText("Tamén o podo modificar con outro texto")  # Escribe por defecto el texto gallego en el cuadro de entrada.
 
         print(self.etiqueta.text())  # Imprime en la consola de Python el texto actual de la etiqueta ("Otro texto").
-        print(
-            self.cadroTexto.text())  # Imprime en la consola el texto actual del cuadro de entrada ("Tamén o podo modificar con outro texto").
+        print(self.cadroTexto.text())  # Imprime en la consola el texto actual del cuadro de entrada ("Tamén o podo modificar con outro texto").
 
         caixaV.addWidget(self.etiqueta)  # Añade la etiqueta al diseño vertical (se posicionará arriba).
         caixaV.addWidget(self.cadroTexto)  # Añade el cuadro de texto al diseño vertical (se posicionará en el medio).
@@ -58,6 +51,12 @@ class FiestaPrincipal(QMainWindow):  # Define la clase de la ventana principal h
         texto_actual = self.cadroTexto.text()  # Obtiene el texto que el usuario haya escrito dentro del cuadro en ese momento.
         self.etiqueta.setText("hola" + texto_actual)  # Asigna ese texto recuperado a la etiqueta, actualizando lo que se muestra en pantalla.
 
+    # LINEA POR CORREGIR-------------------------------------------------------------------------------------------------------------------------------------
+#        if len(nome) !=0 :
+#            self.etiqueta.setText("Hola" + texto_actual + "Encantado de tenerte aquí")
+#        else:
+#            self.etiqueta.setText("Porfavor, introduce tu nnombre")  # Asigna ese texto recuperado a la etiqueta, actualizando lo que se muestra en pantalla.
+#------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':  # Comprueba si este script se está ejecutando directamente (y no importado como un módulo).
     aplicacion = QApplication(
