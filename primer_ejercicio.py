@@ -29,7 +29,7 @@ class FiestaPrincipal(QMainWindow):  # Define la clase de la ventana principal h
         self.cadroTexto.setPlaceholderText("Introduce tu nombre")  # Añade un texto de sugerencia gris de fondo al cuadro de texto.
 
         self.etiqueta.setText("Otro texto")  # Cambia inmediatamente el texto de la etiqueta a "Otro texto".
-        self.cadroTexto.returnPressed.connect(self.on_boton_clicked)
+        self.cadroTexto.returnPressed.connect(self.on_boton_clicked) #Printear lo que halla en el cuadro de texto al presionar enter
 
         print(self.etiqueta.text())  # Imprime en la consola de Python el texto actual de la etiqueta ("Otro texto").
         print(self.cadroTexto.text())  # Imprime en la consola el texto actual del cuadro de entrada ("Tamén o podo modificar con outro texto").
