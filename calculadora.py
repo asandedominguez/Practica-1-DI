@@ -17,44 +17,63 @@ class FiestaPrincipal(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle(' calculadora ')
+        self.setWindowTitle(' calvo ---->')
         self.setMinimumSize(300,200)
         self.setMaximumSize(500,400)
 
-        caja = QHBoxLayout()
-
-        izquierda = QVBoxLayout()
+        caja = QVBoxLayout()
 
 
-        w_izq = QWidget()
-        w_izq.setLayout(izquierda)
+        pantalla = QHBoxLayout()
+        pantalla.addWidget(caixa_cor("red"))
 
-        centro = QHBoxLayout()
-        centro.addWidget(caixa_cor("red"))
+        colum1 = QHBoxLayout()
 
-        w_centro = QWidget()
-        w_centro.setLayout(centro)
+        colum1.addWidget(QPushButton("hola"))
+        colum1.addWidget(QPushButton("hola"))
+        colum1.addWidget(QPushButton("hola"))
+        colum1.addWidget(QPushButton("hola"))
 
-        derecha = QVBoxLayout()
-        derecha.addWidget(caixa_cor("red"))
-        derecha.addWidget(caixa_cor("purple"))
 
-        w_derc = QWidget()
-        w_derc.setLayout(derecha)
+        colum2 = QHBoxLayout()
+        colum2.addWidget(QPushButton("hola"))
+        colum2.addWidget(QPushButton("hola"))
+        colum2.addWidget(QPushButton("hola"))
+        colum2.addWidget(QPushButton("hola"))
 
-        caja.addWidget(w_izq)
-        caja.addWidget(w_centro)
-        caja.addWidget(w_derc)
+        colum3 = QHBoxLayout()
+        colum3.addWidget(QPushButton("hola"))
+        colum3.addWidget(QPushButton("hola"))
+        colum3.addWidget(QPushButton("hola"))
+        colum3.addWidget(QPushButton("hola"))
+
+        colum4 = QHBoxLayout()
+        colum4.addWidget(QPushButton("hola"))
+        colum4.addWidget(QPushButton("hola"))
+        colum4.addWidget(QPushButton("hola"))
+        colum4.addWidget(QPushButton("hola"))
+
+
+        colum5 = QHBoxLayout()
+        colum5.addWidget(QPushButton("hola"))
+        colum5.addWidget(QPushButton("hola"))
+        colum5.addWidget(QPushButton("hola"))
+        colum5.addWidget(QPushButton("hola"))
+
+        caja.addLayout(pantalla)
+        caja.addLayout(colum1)
+        caja.addLayout(colum2)
+        caja.addLayout(colum3)
+        caja.addLayout(colum4)
+        caja.addLayout(colum5)
+
+        caja.addLayout(pantalla, 2)  # La pantalla ocupa 2 partes de alto
+
 
 
         contenedor = QWidget()
         contenedor.setLayout(caja)
         self.setCentralWidget(contenedor)
-
-
-
-
-
 
 
 
