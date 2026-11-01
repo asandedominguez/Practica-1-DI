@@ -1,5 +1,4 @@
 import sys
-import math
 from PyQt6.QtWidgets import (QMainWindow, QApplication, QVBoxLayout, QPushButton, QWidget, QLabel, QLineEdit,
                              QGridLayout,QHBoxLayout)
 from PyQt6.QtGui import QColor,QPalette
@@ -103,14 +102,8 @@ class FiestaPrincipal(QMainWindow):
         btn14.clicked.connect(N3_B)
 
         btn15 = QPushButton(' %')
-        def N_porcentaje():
-            pantalla_etiqueta.setText(pantalla_etiqueta.text() + "%")
-        btn15.clicked.connect(N_porcentaje)
 
         btn16 = QPushButton(' mod')
-        def N_mod():
-            pantalla_etiqueta.setText(pantalla_etiqueta.text() + "%")
-        btn16.clicked.connect(N_mod)
 
         btn17 = QPushButton(' /')
         def N_div():
@@ -133,25 +126,13 @@ class FiestaPrincipal(QMainWindow):
         btn20.clicked.connect(N_suma)
 
         btn21 = QPushButton(' π')
-        def N_pi():
-            pantalla_etiqueta.setText(pantalla_etiqueta.text() + "π")
-        btn21.clicked.connect(N_pi)
-
         btn22 = QPushButton(' √')
-        def N_raiz():
-            pantalla_etiqueta.setText(pantalla_etiqueta.text() + "√(")
-        btn22.clicked.connect(N_raiz)
-
         btn23 = QPushButton(' x²')
-        def N_cuadrado():
-            pantalla_etiqueta.setText(pantalla_etiqueta.text() + "**2")
-        btn23.clicked.connect(N_cuadrado)
-
         btn24 = QPushButton(' =')
 
         def calcular():
             try:
-                texto = pantalla_etiqueta.text().replace("x", "*").replace(",", ".").replace("π", str(math.pi)).replace("√", "math.sqrt")
+                texto = pantalla_etiqueta.text().replace("x", "*").replace(",", ".")
                 resultado = eval(texto)
                 pantalla_etiqueta.setText(str(resultado))
             except Exception:
