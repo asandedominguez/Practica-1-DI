@@ -6,7 +6,9 @@ class ModeloTarefas(QAbstractListModel):
         self.tarefas = tarefas or []
 
     def data(self, indice, rol):
-        pass
+        if rol == Qt.ItemDataRole.DisplayRole:
+            _, texto = self.tarefas[indice.row()]
+            return texto
 
     def rowCount(self, indice):
         return len(self.tarefas)
