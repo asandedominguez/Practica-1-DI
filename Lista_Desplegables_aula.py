@@ -22,7 +22,8 @@ class FiestaPrincipal(QMainWindow):
 
         caja.addWidget(self.combTipo)
 
-        tarxetas = QStackedLayout()
+        # ⚠️ FIX 1: Convertir en atributo self.tarxetas
+        self.tarxetas = QStackedLayout()
 
         mainalumno = QGridLayout()
         lblCiclos = QLabel("Ciclos")
@@ -61,16 +62,18 @@ class FiestaPrincipal(QMainWindow):
 
         widgetAlumno = QWidget()
         widgetAlumno.setLayout(mainalumno)
-        tarxetas.addWidget(widgetAlumno)
+        self.tarxetas.addWidget(widgetAlumno)
 
-        caja.addLayout(tarxetas)
+        caja.addLayout(self.tarxetas)
 
         container = QWidget()
         container.setLayout(caja)
         self.setCentralWidget(container)
 
-    def on_combTipo_currentIndexChanged(self):
-        self.tarxetas.setCurrentIndex(self.combTipo.currentIndex())
+    # ⚠️ FIX 2: Validar que el índice no sea negativo (-1)
+    def on_combTipo_currentIndexChanged(self, index):
+        if index >= 0:
+            self.tarxetas.setCurrentIndex(index)
 
 
 if __name__ == "__main__":

@@ -41,8 +41,9 @@ class FiestaPrincipal(QMainWindow):
 
         columna2.addWidget(celda4)
 
-        layout_principal.addLayout(columna2)
+
         layout_principal.addLayout(columna1)
+        layout_principal.addLayout(columna2)
 
         # 4. Establecer el contenedor central
         self.setCentralWidget(contenedor)
