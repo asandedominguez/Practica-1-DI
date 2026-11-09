@@ -24,7 +24,6 @@ class FiestaPrincipal(QMainWindow):
 
         caja = QVBoxLayout()
 
-
         pantalla = QHBoxLayout()
         pantalla_etiqueta = QLabel()
         pantalla.addWidget(pantalla_etiqueta)
