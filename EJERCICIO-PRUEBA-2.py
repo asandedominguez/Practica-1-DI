@@ -1,36 +1,47 @@
+# NOTA = • Si el objeto es un diseño (QHBoxLayout, QVBoxLayout, QGridLayout, etc.) → usa .addLayout().
+# • Si el objeto es un componente visual (QPushButton, QLabel, QWidget, etc.) → usa .addWidget().
+
+
+
 import sys
 from PyQt6.QtWidgets import (
     QMainWindow, QApplication, QVBoxLayout, QPushButton,
     QWidget, QLineEdit, QGridLayout, QSizePolicy
 )
 
-
+# ==============================================================================
+# 1. CLASE DE LA VENTANA PRINCIPAL
+# ==============================================================================
 class ConversorMultifuncion(QMainWindow):
     def __init__(self):
-        super().__init__()
+        super().__init__()  # Inicializa QMainWindow
 
-        self.setWindowTitle("Conversor Multifunción")
-        self.setMinimumSize(360, 320)
+        # Configuración básica de la ventana
+        self.setWindowTitle("Conversor Multifunción")  # Título de la barra superior
+        self.setMinimumSize(360, 320)  # Tamaño mínimo permitido
 
+        # Layout principal vertical: pondrá la pantalla arriba y el teclado abajo
         caja_principal = QVBoxLayout()
 
-        # 1. Pantalla superior
-        self.entrada = QLineEdit()
-        self.entrada.setPlaceholderText("Ingresar número")
+        # --- ZONA SUPERIOR: Pantalla numérica ---
+        self.entrada = QLineEdit()  # Campo de texto donde se ven números y resultados
+        self.entrada.setPlaceholderText("Ingresar número")  # Texto guía en gris
+        # Aplicamos estilo CSS (QSS) para agrandar la letra y dar margen interno
         self.entrada.setStyleSheet("font-size: 18px; padding: 6px;")
         caja_principal.addWidget(self.entrada)
 
-        # 2. Cuadrícula de botones (QGridLayout)
+        # --- ZONA INFERIOR: Cuadrícula de botones (QGridLayout) ---
+        # Permite organizar elementos en filas y columnas como una tabla
         teclado = QGridLayout()
 
-        # Fila 0: Borrado
+        # Botones de borrado
         btn_borrar_uno = QPushButton("⌫")
         btn_borrar_uno.clicked.connect(self.on_borrar_uno_clicked)
 
         btn_ce = QPushButton("CE")
         btn_ce.clicked.connect(self.on_ce_clicked)
 
-        # Botones numéricos del 0 al 9
+        # Creación y conexión de los botones numéricos del 0 al 9
         btn_0 = QPushButton("0")
         btn_0.clicked.connect(self.on_btn0_clicked)
 
@@ -61,11 +72,11 @@ class ConversorMultifuncion(QMainWindow):
         btn_9 = QPushButton("9")
         btn_9.clicked.connect(self.on_btn9_clicked)
 
-        # Botón punto decimal
+        # Botón para decimales
         btn_punto = QPushButton(".")
         btn_punto.clicked.connect(self.on_punto_clicked)
 
-        # Botones de conversión (columna derecha)
+        # Botones de operaciones de conversión (columna derecha)
         btn_cf = QPushButton("°C -> °F")
         btn_cf.clicked.connect(self.on_celsius_fahrenheit_clicked)
 
@@ -75,15 +86,19 @@ class ConversorMultifuncion(QMainWindow):
         btn_ed = QPushButton("€ -> $")
         btn_ed.clicked.connect(self.on_euros_dolares_clicked)
 
-        # Botón Limpiar expandido (ocupa 2 filas)
+        # Botón Limpiar expandido (ocupará 2 filas de alto)
         btn_limpiar = QPushButton("Limpiar")
+        # Expanding obliga al botón a estirarse todo lo posible en ancho y alto
         btn_limpiar.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        # Reutiliza el mismo método de borrado total que el botón CE
         btn_limpiar.clicked.connect(self.on_ce_clicked)
 
-        # 3. Posicionamiento en la rejilla (fila, columna, [rowSpan, colSpan])
+        # --- POSICIONAMIENTO EN LA REJILLA ---
+        # Sintaxis: addWidget(widget, fila, columna, filas_que_ocupa, columnas_que_ocupa)
+
         # Fila 0
         teclado.addWidget(btn_borrar_uno, 0, 0)
-        teclado.addWidget(btn_ce, 0, 1, 1, 2)  # Ocupa 2 columnas
+        teclado.addWidget(btn_ce, 0, 1, 1, 2)  # Fila 0, col 1: ocupa 1 fila y 2 columnas
         teclado.addWidget(btn_cf, 0, 3)
 
         # Fila 1
@@ -102,26 +117,34 @@ class ConversorMultifuncion(QMainWindow):
         teclado.addWidget(btn_1, 3, 0)
         teclado.addWidget(btn_2, 3, 1)
         teclado.addWidget(btn_3, 3, 2)
-        teclado.addWidget(btn_limpiar, 3, 3, 2, 1)  # Ocupa filas 3 y 4 en la columna 3
+        teclado.addWidget(btn_limpiar, 3, 3, 2, 1)  # Fila 3, col 3: ocupa 2 filas y 1 columna
 
-        teclado.addWidget(btn_0, 4, 0, 1, 2)  # El 0 ocupa 2 columnas
+        teclado.addWidget(btn_0, 4, 0, 1, 2)  # Fila 4, col 0: ocupa 1 fila y 2 columnas
         teclado.addWidget(btn_punto, 4, 2)
 
-        caja_principal.addLayout(teclado)
+        # --- ENSAMBLAJE FINAL ---
+        caja_principal.addLayout(teclado)  # Añadimos la cuadrícula debajo de la pantalla
 
+        # Contenedor central obligatorio para QMainWindow
         contenedor = QWidget()
         contenedor.setLayout(caja_principal)
         self.setCentralWidget(contenedor)
 
-    # --- Métodos de borrado ---
+    # ==========================================================================
+    # 2. MÉTODOS DE BORRADO
+    # ==========================================================================
     def on_borrar_uno_clicked(self):
         texto = self.entrada.text()
+        # Slicing [:-1]: toma toda la cadena excepto el último carácter
         self.entrada.setText(texto[:-1])
 
     def on_ce_clicked(self):
+        # Vacía por completo el contenido del QLineEdit
         self.entrada.clear()
 
-    # --- Métodos numéricos ---
+    # ==========================================================================
+    # 3. MÉTODOS NUMÉRICOS (Concatenan el dígito al texto existente)
+    # ==========================================================================
     def on_btn0_clicked(self):
         self.entrada.setText(self.entrada.text() + "0")
 
@@ -153,16 +176,22 @@ class ConversorMultifuncion(QMainWindow):
         self.entrada.setText(self.entrada.text() + "9")
 
     def on_punto_clicked(self):
+        # Evita escribir más de un punto decimal en el mismo número
         if "." not in self.entrada.text():
             self.entrada.setText(self.entrada.text() + ".")
 
-    # --- Métodos de conversión con captura de ValueError ---
+    # ==========================================================================
+    # 4. MÉTODOS DE CONVERSIÓN (Con control de errores)
+    # ==========================================================================
     def on_celsius_fahrenheit_clicked(self):
         try:
+            # Convertimos el texto a número decimal (float)
             valor = float(self.entrada.text())
             resultado = (valor * 9 / 5) + 32
+            # Redondeamos a 2 decimales y devolvemos como texto a la pantalla
             self.entrada.setText(str(round(resultado, 2)))
         except ValueError:
+            # Si la pantalla está vacía o tiene texto inválido (ej. "Error" o solo ".")
             self.entrada.setText("Error")
 
     def on_celsius_kelvin_clicked(self):
@@ -182,8 +211,11 @@ class ConversorMultifuncion(QMainWindow):
             self.entrada.setText("Error")
 
 
+# ==============================================================================
+# 5. PUNTO DE ENTRADA DE LA APLICACIÓN
+# ==============================================================================
 if __name__ == "__main__":
-    aplicacion = QApplication(sys.argv)
-    ventana = ConversorMultifuncion()
-    ventana.show()
-    sys.exit(aplicacion.exec())
+    aplicacion = QApplication(sys.argv)  # Crea la instancia de la aplicación
+    ventana = ConversorMultifuncion()  # Crea nuestra ventana
+    ventana.show()  # Muestra la ventana en pantalla
+    sys.exit(aplicacion.exec())  # Inicia el bucle de eventos hasta cerrar
